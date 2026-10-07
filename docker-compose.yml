@@ -1,0 +1,13 @@
+services:
+  sfs-oplate:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sfs-oplate-app
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOSTNAME=0.0.0.0
