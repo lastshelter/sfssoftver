@@ -113,7 +113,6 @@ export function calculateWallFormwork(
 
   // 2. Panel Height Specific Code Suffixes
   const heightTag = (wallHeight * 100).toFixed(0); // '270', '300', '330'
-  const panelHeightM = wallHeight;
 
   // 3. Mathematical Decomposition of Linear Runs into Panel Modules
   // In Framax systems, 0.90m panels form the primary repetitive grid (~70% of continuous wall),

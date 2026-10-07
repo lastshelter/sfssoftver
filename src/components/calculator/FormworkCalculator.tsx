@@ -5,31 +5,23 @@ import {
   Building2,
   Grid,
   Box,
-  Layers,
   Sparkles,
-  ShieldCheck,
-  Truck,
   CheckCircle2,
   AlertTriangle,
   AlertCircle,
-  FileText,
   Send,
   Plus,
   Minus,
   Scale,
-  Compass,
-  ArrowRight,
-  Anchor,
-  Clock,
   Printer,
 } from "lucide-react";
 import {
   WallCalculationInput,
   WallHeightVariant,
   StructuralCalculationResult,
-  BillOfQuantitiesItem,
   FleetInventoryMatchReport,
 } from "@/types/calculator";
+import { Inquiry, ProductCategory } from "@/types";
 import { calculateWallFormwork } from "@/lib/calculations/wallFormwork";
 import { calculateSlabFormwork } from "@/lib/calculations/slabFormwork";
 import { matchFleetInventory } from "@/lib/inventory/fleetMatcher";
@@ -38,14 +30,14 @@ import { useToast } from "@/components/ToastContext";
 
 interface FormworkCalculatorProps {
   onGenerateOffer?: (result: StructuralCalculationResult) => void;
-  onSubmitInquiry?: (inquiryData: any) => void;
+  onSubmitInquiry?: (inquiryData: Inquiry) => void;
 }
 
 export function FormworkCalculator({
   onGenerateOffer,
   onSubmitInquiry,
 }: FormworkCalculatorProps) {
-  const { formatPrice, currency } = useCurrency();
+  const { formatPrice } = useCurrency();
   const { showToast } = useToast();
 
   // Active formwork system tab
@@ -146,7 +138,11 @@ export function FormworkCalculator({
       phone: "+381 64 844 3322",
       email: "dispecer@gradiliste.rs",
       location: "Beograd / Srbija",
-      category: activeTab === "wall" ? "Zidna oplata" : activeTab === "slab" ? "Plafonska oplata" : "Skele",
+      category: (activeTab === "wall"
+        ? "Zidna oplata"
+        : activeTab === "slab"
+        ? "Plafonska oplata"
+        : "Skele") as ProductCategory,
       description: currentResult.engineeringSummary,
       quantitySummary: `${currentResult.metrics.totalContactAreaM2} m² (${currentResult.systemTitle})`,
       startDate: new Date().toISOString().split("T")[0],
@@ -374,7 +370,7 @@ export function FormworkCalculator({
                       Ukupna Dužina Zidova
                     </label>
                     <span className="font-mono text-base font-black text-[#F59E0B]">
-                      {wallLength} m'
+                      {wallLength} m&apos;
                     </span>
                   </div>
                   <input
